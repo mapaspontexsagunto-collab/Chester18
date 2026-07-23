@@ -13,7 +13,7 @@
    ========================================================= */
 
 const CONFIG = {
-  BACKEND_URL: "https://script.google.com/macros/s/AKfycbzybPzs30_s-FFzSJ0YWx9ZD6IhR4o8hr2NGd36xTH6YL8Vht4KoBWvHDQx-lQ1eyJtUw/exec", // <-- pega aquí la URL del Web App de Apps Script cuando la tengas
+  BACKEND_URL: "https://script.google.com/macros/s/AKfycbyvRr2MskhM9DdZ6IeyYYWBXbxy_fFDgDzHjzbOCitJTQdRDnkBf8n4Zn8JLqFz3OEz-Q/exec", // <-- pega aquí la URL del Web App de Apps Script cuando la tengas
   ADMIN_PIN: "1234", // PIN de demo. En producción la confirmación se hace desde el backend, no aquí.
   OWNER_WHATSAPP: "34629733085",
   OPEN_HOUR: 9,
