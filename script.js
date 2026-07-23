@@ -14,7 +14,7 @@
 
 const CONFIG = {
   BACKEND_URL: "https://script.google.com/macros/s/AKfycbwb3nsvGWHxr0jiFr4CtJAi2lPcTk8fdHEl1g1Xp7R15gV_ElLYwbDbd1BTaPx_KE3lwA/exec", // <-- pega aquí la URL del Web App de Apps Script cuando la tengas
-  ADMIN_PIN: "1234", // PIN de demo. En producción la confirmación se hace desde el backend, no aquí.
+  ADMIN_PIN: "1216", // PIN de demo. En producción la confirmación se hace desde el backend, no aquí.
   OWNER_WHATSAPP: "34629733085",
   OPEN_HOUR: 9,
 };
@@ -58,10 +58,20 @@ function seedDemoData(){
 seedDemoData();
 
 /* ---------- capa de datos (demo <-> backend real) ---------- */
-async function apiListReservations(){
+// Guardamos en memoria la última lista traída del servidor. Así, pulsar
+// días o franjas es instantáneo: solo volvemos a preguntar al backend
+// (que es lento) cuando de verdad cambia algo — al crear, confirmar o
+// rechazar una reserva, pasando forceRefresh = true.
+let _reservationsCache = null;
+
+async function apiListReservations(forceRefresh = false){
   if (CONFIG.BACKEND_URL){
+    if (_reservationsCache && !forceRefresh){
+      return _reservationsCache;
+    }
     const res = await fetch(`${CONFIG.BACKEND_URL}?action=list`);
-    return await res.json();
+    _reservationsCache = await res.json();
+    return _reservationsCache;
   }
   return RESERVATIONS;
 }
@@ -268,6 +278,7 @@ function wireForm(){
     submitBtn.textContent = "Solicitar esta reserva";
     form.reset();
     selected.turno = null;
+    await apiListReservations(true); // refrescar caché: acabamos de crear una reserva
     await renderCalendar();
     await renderSlotPanel();
     await renderAdmin();
@@ -290,7 +301,9 @@ function wireAdmin(){
       adminUnlocked = true;
     }
     panel.classList.toggle("show");
-    if (panel.classList.contains("show")) renderAdmin();
+    if (panel.classList.contains("show")){
+      apiListReservations(true).then(renderAdmin); // datos frescos al abrir el panel
+    }
   });
 }
 
@@ -300,9 +313,23 @@ async function renderAdmin(){
   const list = await apiListReservations();
   const body = document.getElementById("adminList");
   body.innerHTML = "";
+
+  // Botón para traer del servidor las reservas nuevas que hayan entrado
+  // mientras tenías la web abierta (la lista está cacheada para ir rápido).
+  const refreshBar = document.createElement("div");
+  refreshBar.style.cssText = "display:flex;justify-content:flex-end;margin-bottom:12px;";
+  refreshBar.innerHTML = `<button class="btn btn-ghost btn-sm" id="adminRefresh" style="border-color:rgba(251,248,241,.5);color:#fff;">↻ Actualizar</button>`;
+  body.appendChild(refreshBar);
+  refreshBar.querySelector("#adminRefresh").addEventListener("click", async () => {
+    await apiListReservations(true);
+    await renderAdmin();
+    await renderCalendar();
+    await renderSlotPanel();
+  });
+
   const sorted = [...list].sort((a,b) => a.date.localeCompare(b.date));
   if (sorted.length === 0){
-    body.innerHTML = `<p class="admin-empty">No hay solicitudes todavía.</p>`;
+    body.insertAdjacentHTML("beforeend", `<p class="admin-empty">No hay solicitudes todavía.</p>`);
     return;
   }
   sorted.forEach(r => {
@@ -328,6 +355,7 @@ async function renderAdmin(){
       const id = btn.getAttribute("data-id");
       const act = btn.getAttribute("data-act");
       await apiUpdateReservation(id, act === "confirmar" ? "confirmada" : "rechazada");
+      await apiListReservations(true); // refrescar caché: acabamos de cambiar una reserva
       await renderAdmin();
       await renderCalendar();
       await renderSlotPanel();
