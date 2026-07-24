@@ -138,9 +138,9 @@ section{ position: relative; }
   position:absolute; inset:0;
   background-image: url('assets/sofa-detallado.png');
   background-repeat: no-repeat;
-  background-size: 100% auto;
+  background-size: contain;
   background-position: bottom center;
-  opacity: .22;
+  opacity: .28;
   pointer-events:none;
 }
 .hero .wrap{ position:relative; z-index:2; padding-top: 90px; padding-bottom: 70px; }
