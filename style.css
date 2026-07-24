@@ -110,7 +110,7 @@ section{ position: relative; }
 }
 .nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:74px; }
 .nav-brand{ display:flex; align-items:center; gap:10px; font-family: var(--font-display); font-weight:700; font-size: 20px; color: var(--forest); }
-.nav-brand svg{ width:34px; height:22px; flex-shrink:0; }
+.nav-brand-icon{ height:34px; width:auto; flex-shrink:0; }
 .nav-links{ display:flex; gap: 28px; align-items:center; }
 .nav-links a{ font-size: 14.5px; font-weight:600; color: var(--forest-soft); }
 .nav-links a:hover{ color: var(--leather); }
@@ -136,7 +136,7 @@ section{ position: relative; }
 }
 .hero-bg{
   position:absolute; inset:0;
-  background-image: url('assets/sofa-icono.png');
+  background-image: url('assets/sofa-detallado.png');
   background-repeat: no-repeat;
   background-size: 100% auto;
   background-position: bottom center;
