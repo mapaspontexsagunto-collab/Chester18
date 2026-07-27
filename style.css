@@ -139,9 +139,15 @@ section{ position: relative; }
   background-image: url('assets/sofa-detallado.png');
   background-repeat: no-repeat;
   background-size: contain;
-  background-position: bottom center;
+  background-position: center center;
   opacity: .28;
   pointer-events:none;
+}
+@media (max-width: 720px){
+  .hero-bg{
+    background-size: contain;
+    background-position: center center;
+  }
 }
 .hero .wrap{ position:relative; z-index:2; padding-top: 90px; padding-bottom: 70px; }
 .hero-tag{
