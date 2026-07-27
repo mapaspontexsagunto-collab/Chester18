@@ -15,25 +15,54 @@
 
 <nav class="nav">
   <div class="wrap">
-    <a href="#top" class="nav-brand">
-      <img src="assets/sofa-detallado.png" alt="" class="nav-brand-icon">
-      Sala Chester
-    </a>
+    #top
     <div class="nav-links" id="navLinks">
-      <a href="#espacios">Espacios</a>
-      <a href="#tarifas">Tarifas</a>
-      <a href="#reservas">Disponibilidad</a>
-      <a href="#ubicacion">Ubicación</a>
-      <a href="#contacto">Contacto</a>
+      #espacios
+      #tarifas>
+      #reservas
+      #ubicacion
+      #contacto
     </div>
     <div class="nav-cta">
-      <a class="btn btn-primary btn-sm" href="#reservas">Ver disponibilidad</a>
+      #reservas
       <button class="nav-burger" id="navBurger" aria-label="Abrir menú">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="#29331F" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M3 6h18M3 12h18M3 18h18" stroke="#29331F" stroke-width="2" stroke-linecap="round"/>
+        </svg>
       </button>
     </div>
   </div>
 </nav>
+
+<style>
+  /* 🔹 Esto centra el contenido verticalmente en todo el navbar */
+  .nav .wrap {
+    display: flex;
+    align-items: center; /* evita que se vaya abajo */
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  /* 🔹 Centra imagen + texto dentro del enlace */
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* 🔹 Evita comportamientos raros de la imagen */
+  .nav-brand-icon {
+    display: block;
+  }
+
+  /* 🔹 Ajuste móvil (importante) */
+  @media (max-width: 768px) {
+    .nav .wrap {
+      flex-direction: row; /* evita que se apile y se vaya abajo */
+      align-items: center;
+    }
+  }
+</style>
 
 <header class="hero" id="top">
   <div class="hero-bg"></div>
