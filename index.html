@@ -15,55 +15,76 @@
 
 <nav class="nav">
   <div class="wrap">
-    #top
+    <a href="#top" class="nav-brand">
+      <img src="assets/sofa-detallado.png" alt="" class="nav-brand-icon">
+      Sala Chester
+    </a>
     <div class="nav-links" id="navLinks">
-      #espacios
-      #tarifas>
-      #reservas
-      #ubicacion
-      #contacto
+      <a href="#espacios">Espacios</a>
+      <a href="#tarifas">Tarifas</a>
+      <a href="#reservas">Disponibilidad</a>
+      <a href="#ubicacion">Ubicación</a>
+      <a href="#contacto">Contacto</a>
     </div>
     <div class="nav-cta">
-      #reservas
+      <a class="btn btn-primary btn-sm" href="#reservas">Ver disponibilidad</a>
       <button class="nav-burger" id="navBurger" aria-label="Abrir menú">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M3 6h18M3 12h18M3 18h18" stroke="#29331F" stroke-width="2" stroke-linecap="round"/>
-        </svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="#29331F" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
     </div>
   </div>
 </nav>
 
 <style>
-  /* 🔹 Esto centra el contenido verticalmente en todo el navbar */
+  /* 🔥 CENTRADO GENERAL */
   .nav .wrap {
     display: flex;
-    align-items: center; /* evita que se vaya abajo */
+    align-items: center; /* esto evita que el logo caiga abajo */
     justify-content: space-between;
     width: 100%;
   }
 
-  /* 🔹 Centra imagen + texto dentro del enlace */
+  /* 🔥 LOGO (imagen + texto) */
   .nav-brand {
     display: flex;
-    align-items: center;
+    align-items: center; /* centra imagen con texto */
     gap: 8px;
+    text-decoration: none;
   }
 
-  /* 🔹 Evita comportamientos raros de la imagen */
+  /* 🔥 IMAGEN */
   .nav-brand-icon {
     display: block;
+    height: 40px;
+    width: auto;
   }
 
-  /* 🔹 Ajuste móvil (importante) */
+  /* 🔥 LINKS */
+  .nav-links {
+    display: flex;
+    gap: 16px;
+  }
+
+  /* 🔥 CTA */
+  .nav-cta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* 🔥 MÓVIL: evita que se vaya al pie */
   @media (max-width: 768px) {
     .nav .wrap {
-      flex-direction: row; /* evita que se apile y se vaya abajo */
-      align-items: center;
+      flex-direction: row;   /* no se apile */
+      align-items: center;   /* sigue centrado */
+    }
+
+    .nav-links {
+      display: none;
     }
   }
 </style>
-
+  
 <header class="hero" id="top">
   <div class="hero-bg"></div>
   <div class="wrap">
